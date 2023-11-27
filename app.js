@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const taskList = document.getElementById('taskList');
     const addTaskForm = document.getElementById('addTaskForm');
     const startPomodoroButton = document.getElementById('startPomodoro');
+    const countdownDisplay = document.getElementById('countdown');
 
     // Event listener for the task addition form
     addTaskForm.addEventListener('submit', function (event) {
@@ -42,25 +43,45 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Event listener for the Pomodoro button
     startPomodoroButton.addEventListener('click', startPomodoro);
-});
 
-// Function to delete a task
-function deleteTask(button) {
-    const taskElement = button.closest('.task');
-    taskElement.remove();
-}
+    let pomodoroInterval;
 
-// Function to start the Pomodoro timer
-function startPomodoro() {
-    // Get the Pomodoro duration from the input field
-    const pomodoroDuration = document.getElementById('pomodoroDuration').value;
+    // Function to delete a task
+    window.deleteTask = function (button) {
+        const taskElement = button.closest('.task');
+        taskElement.remove();
+    };
 
-    // Check if the input is a valid number greater than 0
-    if (!isNaN(pomodoroDuration) && pomodoroDuration > 0) {
-        // Display an alert (replace with your Pomodoro timer logic)
-        alert(`Pomodoro started! Work session duration: ${pomodoroDuration} minutes`);
-    } else {
-        // Display an alert for invalid input
-        alert('Please enter a valid Pomodoro duration.');
+    // Function to start the Pomodoro timer
+    function startPomodoro() {
+        // Get the Pomodoro duration from the input field
+        const pomodoroDuration = document.getElementById('pomodoroDuration').value;
+
+        // Check if the input is a valid number greater than 0
+        if (!isNaN(pomodoroDuration) && pomodoroDuration > 0) {
+            alert(`Pomodoro started! Work session duration: ${pomodoroDuration} minutes`);
+
+            let remainingTime = pomodoroDuration * 60; // Convert minutes to seconds
+            updateCountdownDisplay();
+
+            pomodoroInterval = setInterval(function () {
+                if (remainingTime > 0) {
+                    remainingTime--;
+                    updateCountdownDisplay();
+                } else {
+                    clearInterval(pomodoroInterval);
+                    alert('Pomodoro session completed!');
+                }
+            }, 1000); // Update every second
+        } else {
+            alert('Please enter a valid Pomodoro duration.');
+        }
     }
-}
+
+    // Function to update the countdown display
+    function updateCountdownDisplay() {
+        const minutes = Math.floor(remainingTime / 60);
+        const seconds = remainingTime % 60;
+        countdownDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    }
+});
