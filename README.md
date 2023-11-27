@@ -23,8 +23,7 @@ Integrate the Pomodoro Technique timer, allowing users to set focused work sessi
 3. Tools/Environment Used
 The development of the Task Management System involves the use of the following technologies:
 
-Frontend: HTML, CSS, JavaScript
-Backend: Node.js with Express.js
+HTML, CSS, JavaScript
 Database: Not implemented (for simplicity, using in-memory storage)
 Version Control: Git
 Deployment: Local development environment (for now)
