@@ -55,6 +55,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to start the Pomodoro timer
     function startPomodoro() {
+        // Clear existing timer if running
+        clearInterval(pomodoroInterval);
+
         // Get the Pomodoro duration from the input field
         const pomodoroDuration = document.getElementById('pomodoroDuration').value;
 
