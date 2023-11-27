@@ -68,9 +68,50 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('taskDate').value = taskDate;
         document.getElementById('taskTime').value = taskTime;
 
-        // Remove the task from the task list
+        // Replace the "Edit" button with "Save" button for editing
+        const editButton = taskElement.querySelector('button[onclick="editTask(this)"]');
+        editButton.textContent = 'Save';
+        editButton.onclick = function () {
+            saveTask(taskElement);
+        };
+
+        // Remove the task from the task list temporarily during editing
         taskElement.remove();
     };
+
+    // Function to save an edited task
+    function saveTask(taskElement) {
+        const taskTitle = document.getElementById('taskTitle').value;
+        const taskDate = document.getElementById('taskDate').value;
+        const taskTime = document.getElementById('taskTime').value;
+
+        // Check if the task title is not empty
+        if (taskTitle.trim() !== '') {
+            // Create a new task element
+            const newTaskElement = document.createElement('div');
+            newTaskElement.classList.add('task');
+
+            // Parse due date and time
+            const dueDateTime = new Date(`${taskDate}T${taskTime}`);
+
+            // Populate task element with details
+            newTaskElement.innerHTML = `
+                <span>${taskTitle}</span>
+                <span class="due-date">${dueDateTime.toLocaleDateString()}</span>
+                <span class="due-time">${dueDateTime.toLocaleTimeString()}</span>
+                <button onclick="editTask(this)">Edit</button>
+                <button onclick="deleteTask(this)">Delete</button>
+            `;
+
+            // Add the edited task element back to the task list
+            taskList.appendChild(newTaskElement);
+
+            // Clear the input fields
+            document.getElementById('taskTitle').value = '';
+            document.getElementById('taskDate').value = '';
+            document.getElementById('taskTime').value = '';
+        }
+    }
 
     // Function to start the Pomodoro timer
     function startPomodoro() {
