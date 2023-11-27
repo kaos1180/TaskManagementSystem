@@ -56,3 +56,19 @@ input, button {
 #pomodoroDuration {
     width: 3em;
 }
+
+
+/* Add a class to handle dark mode styles */
+body.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Add a class to handle dark mode styles */
+body.dark-mode {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Rest of the existing styles... */
+
