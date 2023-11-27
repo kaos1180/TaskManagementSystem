@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const startPomodoroButton = document.getElementById('startPomodoro');
     const countdownDisplay = document.getElementById('countdown');
 
+    let pomodoroInterval;
+    let remainingTime; // Declare remainingTime outside the function
+
     // Event listener for the task addition form
     addTaskForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -44,8 +47,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Event listener for the Pomodoro button
     startPomodoroButton.addEventListener('click', startPomodoro);
 
-    let pomodoroInterval;
-
     // Function to delete a task
     window.deleteTask = function (button) {
         const taskElement = button.closest('.task');
@@ -61,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!isNaN(pomodoroDuration) && pomodoroDuration > 0) {
             alert(`Pomodoro started! Work session duration: ${pomodoroDuration} minutes`);
 
-            let remainingTime = pomodoroDuration * 60; // Convert minutes to seconds
+            remainingTime = pomodoroDuration * 60; // Convert minutes to seconds
             updateCountdownDisplay();
 
             pomodoroInterval = setInterval(function () {
