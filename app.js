@@ -58,13 +58,14 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to edit a task
     window.editTask = function (button) {
         const taskElement = button.closest('.task');
-        const taskTitle = taskElement.querySelector('span:first-child').textContent;
+        const taskTitleElement = taskElement.querySelector('span:first-child');
+        const taskTitle = taskTitleElement.textContent;
         const taskDate = taskElement.querySelector('.due-date').textContent;
         const taskTime = taskElement.querySelector('.due-time').textContent;
 
         // Populate the form with the task details for editing
         document.getElementById('taskTitle').value = taskTitle;
-        document.getElementById('taskDate').valueAsDate = new Date(taskDate);
+        document.getElementById('taskDate').value = taskDate;
         document.getElementById('taskTime').value = taskTime;
 
         // Remove the task from the task list
