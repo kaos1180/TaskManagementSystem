@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const addTaskForm = document.getElementById('addTaskForm');
     const startPomodoroButton = document.getElementById('startPomodoro');
     const countdownDisplay = document.getElementById('countdown');
+    const toggleDarkModeButton = document.getElementById('toggleDarkMode');
 
     let pomodoroInterval;
     let remainingTime; // Declare remainingTime outside the function
@@ -92,4 +93,14 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Countdown display element not found.');
         }
     }
+
+    // for the dark mode toggle button
+    toggleDarkModeButton.addEventListener('click', function () {
+        // Toggle the dark mode class on the body
+        document.body.classList.toggle('dark-mode');
+
+        // Save the user's preference in localStorage
+        const darkModeEnabled = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', darkModeEnabled ? 'enabled' : 'disabled');
+    });
 });
