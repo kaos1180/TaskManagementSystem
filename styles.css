@@ -46,3 +46,13 @@ label {
 input, button {
     margin-bottom: 1em;
 }
+
+
+/* For styling for the Pomodoro section */
+#pomodoroSection {
+    margin-top: 1em;
+}
+
+#pomodoroDuration {
+    width: 3em;
+}
