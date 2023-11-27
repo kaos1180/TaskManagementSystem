@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>${taskTitle}</span>
                 <span class="due-date">${dueDateTime.toLocaleDateString()}</span>
                 <span class="due-time">${dueDateTime.toLocaleTimeString()}</span>
+                <button onclick="editTask(this)">Edit</button>
                 <button onclick="deleteTask(this)">Delete</button>
             `;
 
@@ -51,6 +52,22 @@ document.addEventListener('DOMContentLoaded', function () {
     // Function to delete a task
     window.deleteTask = function (button) {
         const taskElement = button.closest('.task');
+        taskElement.remove();
+    };
+
+    // Function to edit a task
+    window.editTask = function (button) {
+        const taskElement = button.closest('.task');
+        const taskTitle = taskElement.querySelector('span:first-child').textContent;
+        const taskDate = taskElement.querySelector('.due-date').textContent;
+        const taskTime = taskElement.querySelector('.due-time').textContent;
+
+        // Populate the form with the task details for editing
+        document.getElementById('taskTitle').value = taskTitle;
+        document.getElementById('taskDate').valueAsDate = new Date(taskDate);
+        document.getElementById('taskTime').value = taskTime;
+
+        // Remove the task from the task list
         taskElement.remove();
     };
 
@@ -94,12 +111,12 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // for the dark mode toggle button
+    // Event listener for the dark mode toggle button
     toggleDarkModeButton.addEventListener('click', function () {
         // Toggle the dark mode class on the body
         document.body.classList.toggle('dark-mode');
 
-        // Save the user's preference in localStorage
+        // Save the user's preference in localStorage // good //
         const darkModeEnabled = document.body.classList.contains('dark-mode');
         localStorage.setItem('darkMode', darkModeEnabled ? 'enabled' : 'disabled');
     });
