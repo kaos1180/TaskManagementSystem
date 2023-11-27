@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Management System</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <header>
         <h1>Task Management System</h1>
     </header>
-    
+
     <main>
         <section id="taskList">
             <!-- Task list will be displayed here -->
@@ -29,21 +31,21 @@
                 <input type="time" id="taskTime" required>
 
                 <button type="submit">Add Task</button>
-                
             </form>
         </section>
 
         <!-- ==Add a Pomodoro button and input for session duration== -->
-
-
-<section id="pomodoroSection">
-    <button id="startPomodoro">Start Pomodoro</button>
-    <label for="pomodoroDuration">Pomodoro Duration (minutes): </label>
-    <input type="number" id="pomodoroDuration" min="1" value="25">
-</section>
+        <section id="pomodoroSection">
+            <button id="startPomodoro">Start Pomodoro</button>
+            <label for="pomodoroDuration">Pomodoro Duration (minutes): </label>
+            <input type="number" id="pomodoroDuration" min="1" value="25">
+            <!-- Countdown display for Pomodoro timer -->
+            <span id="countdown"></span>
+        </section>
 
     </main>
 
     <script src="app.js"></script>
 </body>
+
 </html>

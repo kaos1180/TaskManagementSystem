@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Check if the input is a valid number greater than 0
         if (!isNaN(pomodoroDuration) && pomodoroDuration > 0) {
-            alert(`Pomodoro started! Work session duration: ${pomodoroDuration} minutes`);
+            console.log(`Pomodoro started! Work session duration: ${pomodoroDuration} minutes`);
 
             remainingTime = pomodoroDuration * 60; // Convert minutes to seconds
             updateCountdownDisplay();
@@ -71,18 +71,22 @@ document.addEventListener('DOMContentLoaded', function () {
                     updateCountdownDisplay();
                 } else {
                     clearInterval(pomodoroInterval);
-                    alert('Pomodoro session completed!');
+                    console.log('Pomodoro session completed!');
                 }
             }, 1000); // Update every second
         } else {
-            alert('Please enter a valid Pomodoro duration.');
+            console.log('Please enter a valid Pomodoro duration.');
         }
     }
 
     // Function to update the countdown display
     function updateCountdownDisplay() {
-        const minutes = Math.floor(remainingTime / 60);
-        const seconds = remainingTime % 60;
-        countdownDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        if (countdownDisplay) {
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            countdownDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+        } else {
+            console.error('Countdown display element not found.');
+        }
     }
 });
