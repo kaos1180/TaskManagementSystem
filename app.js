@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const addTaskForm = document.getElementById('addTaskForm');
     const startPomodoroButton = document.getElementById('startPomodoro');
     const countdownDisplay = document.getElementById('countdown');
-    const toggleDarkModeButton = document.getElementById('toggleDarkMode');
 
     let pomodoroInterval;
     let remainingTime; // Declare remainingTime outside the function
@@ -32,7 +31,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span>${taskTitle}</span>
                 <span class="due-date">${dueDateTime.toLocaleDateString()}</span>
                 <span class="due-time">${dueDateTime.toLocaleTimeString()}</span>
-                <button onclick="editTask(this)">Edit</button>
                 <button onclick="deleteTask(this)">Delete</button>
             `;
 
@@ -55,69 +53,8 @@ document.addEventListener('DOMContentLoaded', function () {
         taskElement.remove();
     };
 
-    // Function to edit a task
-    window.editTask = function (button) {
-        const taskElement = button.closest('.task');
-        const taskTitleElement = taskElement.querySelector('span:first-child');
-        const taskTitle = taskTitleElement.textContent;
-        const taskDate = taskElement.querySelector('.due-date').textContent;
-        const taskTime = taskElement.querySelector('.due-time').textContent;
-
-        // Populate the form with the task details for editing
-        document.getElementById('taskTitle').value = taskTitle;
-        document.getElementById('taskDate').value = taskDate;
-        document.getElementById('taskTime').value = taskTime;
-
-        // Replace the "Edit" button with "Save" button for editing
-        const editButton = taskElement.querySelector('button[onclick="editTask(this)"]');
-        editButton.textContent = 'Save';
-        editButton.onclick = function () {
-            saveTask(taskElement);
-        };
-
-        // Remove the task from the task list temporarily during editing
-        taskElement.remove();
-    };
-
-    // Function to save an edited task
-    function saveTask(taskElement) {
-        const taskTitle = document.getElementById('taskTitle').value;
-        const taskDate = document.getElementById('taskDate').value;
-        const taskTime = document.getElementById('taskTime').value;
-
-        // Check if the task title is not empty
-        if (taskTitle.trim() !== '') {
-            // Create a new task element
-            const newTaskElement = document.createElement('div');
-            newTaskElement.classList.add('task');
-
-            // Parse due date and time
-            const dueDateTime = new Date(`${taskDate}T${taskTime}`);
-
-            // Populate task element with details
-            newTaskElement.innerHTML = `
-                <span>${taskTitle}</span>
-                <span class="due-date">${dueDateTime.toLocaleDateString()}</span>
-                <span class="due-time">${dueDateTime.toLocaleTimeString()}</span>
-                <button onclick="editTask(this)">Edit</button>
-                <button onclick="deleteTask(this)">Delete</button>
-            `;
-
-            // Add the edited task element back to the task list
-            taskList.appendChild(newTaskElement);
-
-            // Clear the input fields
-            document.getElementById('taskTitle').value = '';
-            document.getElementById('taskDate').value = '';
-            document.getElementById('taskTime').value = '';
-        }
-    }
-
     // Function to start the Pomodoro timer
     function startPomodoro() {
-        // Clear existing timer if running
-        clearInterval(pomodoroInterval);
-
         // Get the Pomodoro duration from the input field
         const pomodoroDuration = document.getElementById('pomodoroDuration').value;
 
@@ -152,16 +89,4 @@ document.addEventListener('DOMContentLoaded', function () {
             console.error('Countdown display element not found.');
         }
     }
-
-    // Event listener for the dark mode toggle button
-    toggleDarkModeButton.addEventListener('click', function () {
-        // Toggle the dark mode class on the body
-        document.body.classList.toggle('dark-mode');
-
-        // Save the user's preference in localStorage // good //
-        const darkModeEnabled = document.body.classList.contains('dark-mode');
-        localStorage.setItem('darkMode', darkModeEnabled ? 'enabled' : 'disabled');
-    });
 });
-
- 
