@@ -163,3 +163,30 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('darkMode', darkModeEnabled ? 'enabled' : 'disabled');
     });
 });
+
+
+    // Function to export tasks to a text file
+    function exportTasks() {
+        const tasks = [];
+        const taskElements = document.querySelectorAll('.task');
+
+        taskElements.forEach((taskElement) => {
+            const taskTitle = taskElement.querySelector('span:first-child').textContent;
+            const dueDate = taskElement.querySelector('.due-date').textContent;
+            const dueTime = taskElement.querySelector('.due-time').textContent;
+
+            const taskString = `${taskTitle}, ${dueDate}, ${dueTime}`;
+            tasks.push(taskString);
+        });
+
+        const tasksText = tasks.join('\n');
+        const blob = new Blob([tasksText], { type: 'text/plain' });
+
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'tasks.txt';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    }
+});
